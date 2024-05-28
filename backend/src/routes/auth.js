@@ -8,15 +8,13 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, firstName, lastName, displayName, password } =
-      req.body;
+    const { email, firstName, lastName, displayName, password } = req.body;
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
     const user = new User({
-      username,
       email,
       firstName,
       lastName,

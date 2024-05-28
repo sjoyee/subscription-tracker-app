@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const activeRoutes = require("./routes/api/active");
 const freeTrialRoutes = require("./routes/api/freetrial");
+const userRoutes = require("./routes/api/user");
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,9 @@ app.use("/api/subscription/active", activeRoutes);
 
 // for the /api/subscription/freetrial path
 app.use("/api/subscription/freetrial", freeTrialRoutes);
+
+// for the /admin/user path
+app.use("/admin/user", userRoutes);
 
 // Connect Database
 connectDB();
