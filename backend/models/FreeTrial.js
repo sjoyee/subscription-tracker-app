@@ -15,4 +15,4 @@ const freeTrialSchema = new mongoose.Schema({
   },
 });
 
-module.exports = FreeTrial = mongoose.model("FreeTrial", freeTrialSchema);
+module.exports = mongoose.model("FreeTrial", freeTrialSchema);

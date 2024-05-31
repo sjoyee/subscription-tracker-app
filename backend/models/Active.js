@@ -24,4 +24,4 @@ const activeSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Active = mongoose.model("Active", activeSchema);
+module.exports = mongoose.model("Active", activeSchema);
