@@ -14,6 +14,7 @@ let corsOptions = {
     "http://localhost:5173",
     "http://localhost:3000",
     "https://subscrimate-app-backend.vercel.app",
+    "https://subscrimate-app.vercel.app",
   ],
 };
 app.use(cors(corsOptions));
