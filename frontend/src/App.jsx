@@ -12,7 +12,7 @@ function App() {
     const loggedInUser = localStorage.getItem("accessToken");
     if (
       window.location.pathname !== "/login" &&
-      window.location.pathname !== "/create" &&
+      window.location.pathname !== "/register" &&
       !loggedInUser
     ) {
       window.location.replace("/login");
