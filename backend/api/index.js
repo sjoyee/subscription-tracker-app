@@ -9,7 +9,14 @@ const userRoutes = require("../routes/api/user");
 const adminUserRoutes = require("../routes/api/adminuser");
 
 const app = express();
-app.use(cors());
+let corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://subscrimate-app-backend.vercel.app",
+  ],
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // use the routes module as a middleware
