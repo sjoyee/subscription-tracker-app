@@ -29,7 +29,7 @@ api.interceptors.response.use(
   },
   async (err) => {
     const originalRequest = err.config;
-    if (err.response.status) {
+    if (err) {
       if (err.response.status === 403) {
         logout();
       }
