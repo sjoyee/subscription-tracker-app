@@ -58,7 +58,6 @@ const SubscriptionPage = () => {
   };
 
   const createActiveSubscription = (item) => {
-    console.log(item);
     createActiveSubscriptionViaApi(item)
       .then((res) => {
         alert(`Create active subscription for ${res.data.name} successfully`);

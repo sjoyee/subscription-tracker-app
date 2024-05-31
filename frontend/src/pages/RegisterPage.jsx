@@ -33,7 +33,7 @@ const RegisterPage = () => {
         window.location.replace("/login");
       })
       .catch((err) => {
-        console.log(err.response.data.error);
+        console.log(err);
         alert("Invalid user data. Please try again");
         window.location.reload();
       });

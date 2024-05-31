@@ -55,7 +55,6 @@ const FreeTrialPage = () => {
   };
 
   const createNewFreeTrial = (item) => {
-    console.log(item);
     createFreeTrialViaApi(item)
       .then((res) => {
         alert(`Create free trial item for ${res.data.name} successfully`);
