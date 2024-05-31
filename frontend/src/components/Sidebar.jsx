@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../services/auth";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Sidebar = () => {
   return (
     <div>
       <div className="fixed inline-block top-0 bottom-0 left-0 right-0">
-        <div className="flex h-full">
+        <div className="h-full">
           <div className="flex flex-col h-full w-20 md:w-52 border-r shadow-xl p-6 justify-between">
             <div>
               <div className="pb-4 md:flex hidden">
@@ -83,6 +84,34 @@ const Sidebar = () => {
                 </svg>
                 <div className="mx-4 md:flex hidden">Subscription</div>
               </button>
+              <div className="py-2"></div>
+              <button
+                onClick={() => {
+                  navigate("/freetrial");
+                }}
+                className={
+                  isActive("/freetrial")
+                    ? "flex flex-row font-bold fill-gray-400 stroke-2"
+                    : "flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="auto"
+                  viewBox="0 0 24 24"
+                  strokeWidth="auto"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+                  />
+                </svg>
+
+                <div className="mx-4 md:flex hidden">Free Trial</div>
+              </button>
               <div className="py-2 border-b-2"></div>
               <div className="py-2"></div>
               <div className="flex flex-row">
@@ -130,7 +159,14 @@ const Sidebar = () => {
                     d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
                   />
                 </svg>
-                <div className="mx-4 md:flex hidden">Logout</div>
+                <div
+                  className="mx-4 md:flex hidden"
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </div>
               </button>
             </div>
           </div>

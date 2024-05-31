@@ -1,55 +1,52 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { formatDate } from "../utils/utils";
-import ActiveDialog from "../components/ActiveDialog";
+import FreeTrialDialog from "../components/FreeTrialDialog";
 import {
-  createActiveSubscriptionViaApi,
-  deleteActiveSubscriptionViaApi,
-  getActiveSubscriptionsViaApi,
-  updateActiveSubscriptionViaApi,
+  createFreeTrialViaApi,
+  deleteFreeTrialViaApi,
+  getFreeTrialsViaApi,
+  updateFreeTrialViaApi,
 } from "../services/services";
 
-const SubscriptionPage = () => {
-  const [activeItems, setActiveItems] = useState([]);
+const FreeTrialPage = () => {
+  const [freeTrialItems, setFreeTrialItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // for create action
-  const [createActive, setCreateActive] = useState(false);
-  const [createActiveItem, setCreateActiveItem] = useState(null);
+  const [createFreeTrial, setCreateFreeTrial] = useState(false);
+  const [createFreeTrialItem, setCreateFreeTrialItem] = useState(null);
 
-  const openCreateActiveDialog = (e) => {
+  const openCreateFreeTrialDialog = (e) => {
     e.preventDefault();
-    setCreateActiveItem({
+    setCreateFreeTrialItem({
       name: "",
-      type: "",
-      price: 0,
-      nextDate: "",
+      startDate: "",
       endDate: "",
     });
-    setCreateActive(true);
+    setCreateFreeTrial(true);
   };
 
   // for update action
-  const [editActive, setEditActive] = useState(false);
-  const [editActiveItem, setEditActiveItem] = useState(null);
+  const [editFreeTrial, setEditFreeTrial] = useState(false);
+  const [editFreeTrialItem, setEditFreeTrialItem] = useState(null);
 
   useEffect(() => {
-    listActiveSubscriptions();
+    listFreeTrials();
   }, []);
 
-  const listActiveSubscriptions = async () => {
+  const listFreeTrials = async () => {
     try {
-      const response = await getActiveSubscriptionsViaApi();
+      const response = await getFreeTrialsViaApi();
       const items = response.data.map((item) => {
         return {
           ...item,
-          price: item.price.$numberDecimal,
-          nextDate: formatDate(item.nextDate),
+          startDate: formatDate(item.startDate),
           endDate: formatDate(item.endDate),
         };
       });
-      setActiveItems(items);
+      setFreeTrialItems(items);
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -57,46 +54,46 @@ const SubscriptionPage = () => {
     }
   };
 
-  const createActiveSubscription = (item) => {
+  const createNewFreeTrial = (item) => {
     console.log(item);
-    createActiveSubscriptionViaApi(item)
+    createFreeTrialViaApi(item)
       .then((res) => {
-        alert(`Create active subscription for ${res.data.name} successfully`);
+        alert(`Create free trial item for ${res.data.name} successfully`);
       })
       .catch((error) => {
-        alert(`Error creating active subscription: ${error.message}`);
+        alert(`Error creating free trial item: ${error.message}`);
       })
       .finally(() => {
-        setCreateActive(false);
-        listActiveSubscriptions();
+        setCreateFreeTrial(false);
+        listFreeTrials();
       });
   };
 
-  const updateActiveSubscription = (item) => {
-    updateActiveSubscriptionViaApi(item._id, item)
+  const updateFreeTrial = (item) => {
+    updateFreeTrialViaApi(item._id, item)
       .then((res) => {
-        alert(`Update active subscription for ${res.data.name} successfully`);
+        alert(`Update free trial item for ${res.data.name} successfully`);
       })
       .catch((error) => {
-        alert(`Error updating active subscription: ${error.message}`);
+        alert(`Error updating free trial item: ${error.message}`);
       })
       .finally(() => {
-        setEditActive(false);
-        listActiveSubscriptions();
+        setEditFreeTrial(false);
+        listFreeTrials();
       });
   };
 
-  const deleteActiveSubscription = (id) => {
-    deleteActiveSubscriptionViaApi(id)
+  const deleteFreeTrial = (id) => {
+    deleteFreeTrialViaApi(id)
       .then(() => {
-        alert(`Delete active subscription successfully`);
+        alert(`Delete free trial item successfully`);
       })
       .catch((error) => {
-        alert(`Error updating active subscription: ${error.message}`);
+        alert(`Error updating free trial item: ${error.message}`);
       })
       .finally(() => {
-        setEditActive(false);
-        listActiveSubscriptions();
+        setEditFreeTrial(false);
+        listFreeTrials();
       });
   };
 
@@ -105,19 +102,21 @@ const SubscriptionPage = () => {
   return (
     <div>
       <div
-        className={createActive || editActive ? "opacity-30" : "opacity-100"}
+        className={
+          createFreeTrial || editFreeTrial ? "opacity-30" : "opacity-100"
+        }
       >
         <Sidebar />
         <div className="absolute md:ml-52 ml-14">
           <div className="m-12">
             <div className="text-3xl font-medium mt-4 mb-8">
-              Manage your subscriptions
+              Manage your subscribed free trials
             </div>
             {/* First section */}
-            <div className="text-2xl my-4">Active Subscriptions</div>
+            <div className="text-2xl my-4">Free Trials</div>
             <div className="flex my-2">
               <button
-                onClick={openCreateActiveDialog}
+                onClick={openCreateFreeTrialDialog}
                 className="flex flex-row text-base text-gray-500 hover:font-bold hover:text-black stroke-[1.5] hover:stroke-[2.5]"
               >
                 <svg
@@ -134,40 +133,27 @@ const SubscriptionPage = () => {
                     d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
-                Add a new subscription
+                Add a new free trial item
               </button>
             </div>
-            {activeItems.length > 0 ? (
+            {freeTrialItems.length > 0 ? (
               <table className="table-auto sm:table-fixed border border-gray-300 text-left text-sm w-full">
                 <thead className="bg-gray-100">
                   <tr className="border-b border-gray-300">
                     <th className="p-4">App Name</th>
-                    <th className="px-4">Type</th>
-                    <th className="px-4">Price</th>
-                    <th className="px-4 hidden sm:table-cell">
-                      Next Payment Date
-                    </th>
-                    <th className="px-4 hidden sm:table-cell">End Date</th>
+                    <th className="px-4">Start Date</th>
+                    <th className="px-4">End Date</th>
                     <th className="px-4">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {activeItems.map((item) => {
+                  {freeTrialItems.map((item) => {
                     return (
                       <tr key={item._id} className="border-b border-gray-300">
                         <td className="p-4 ">{item.name}</td>
-                        <td className="px-4">
-                          {item.type === "Y"
-                            ? "Yearly"
-                            : item.type === "M"
-                            ? "Monthly"
-                            : item.type === "W"
-                            ? "Weekly"
-                            : "Daily"}
-                        </td>
-                        <td className="px-4">RM {item.price}</td>
+
                         <td className="px-4 hidden sm:table-cell">
-                          {item.nextDate}
+                          {item.startDate}
                         </td>
                         <td className="px-4 hidden sm:table-cell">
                           {item.endDate}
@@ -177,8 +163,8 @@ const SubscriptionPage = () => {
                             className="stroke-[1.5] hover:stroke-[2.5]"
                             onClick={(e) => {
                               e.preventDefault();
-                              setEditActive(true);
-                              setEditActiveItem(item);
+                              setEditFreeTrial(true);
+                              setEditFreeTrialItem(item);
                             }}
                           >
                             <svg
@@ -203,39 +189,50 @@ const SubscriptionPage = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="text-sm text-gray-700 py-2">
-                No records found. Begin your tracking by creating a new entry
-                now!
+              <div>
+                <table className="table-fixed border border-gray-300 text-left text-sm">
+                  <thead className="bg-gray-100">
+                    <tr className="border-b border-gray-300">
+                      <th className="p-4">App Name</th>
+                      <th className="px-4">Start Date</th>
+                      <th className="px-4">End Date</th>
+                    </tr>
+                  </thead>
+                </table>
+                <div className="text-sm text-gray-700 py-2">
+                  No records found. Begin your tracking by creating a new entry
+                  now!
+                </div>
               </div>
             )}
           </div>
         </div>
       </div>
       <div className="z-50">
-        {createActive && (
-          <ActiveDialog
+        {createFreeTrial && (
+          <FreeTrialDialog
             isCreate={true}
-            item={createActiveItem}
+            item={createFreeTrialItem}
             handleClose={() => {
-              setCreateActive(false);
+              setCreateFreeTrial(false);
             }}
             handleSubmit={(item) => {
-              createActiveSubscription(item);
+              createNewFreeTrial(item);
             }}
           />
         )}
-        {editActive && (
-          <ActiveDialog
+        {editFreeTrial && (
+          <FreeTrialDialog
             isCreate={false}
-            item={editActiveItem}
+            item={editFreeTrialItem}
             handleClose={() => {
-              setEditActive(false);
+              setEditFreeTrial(false);
             }}
             handleSubmit={(item) => {
-              updateActiveSubscription(item);
+              updateFreeTrial(item);
             }}
             handleDelete={(id) => {
-              deleteActiveSubscription(id);
+              deleteFreeTrial(id);
             }}
           />
         )}
@@ -244,4 +241,4 @@ const SubscriptionPage = () => {
   );
 };
 
-export default SubscriptionPage;
+export default FreeTrialPage;

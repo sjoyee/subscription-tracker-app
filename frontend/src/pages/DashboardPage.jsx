@@ -52,7 +52,7 @@ const DashboardPage = () => {
       <div className="absolute md:ml-52 ml-14">
         <div className="m-12">
           <div className="text-3xl font-medium mt-4 mb-8">
-            Monitor and analyse your subscriptions
+            Monitor your subscriptions and free trials
           </div>
           {/* First section */}
           <div className="text-2xl my-4">Total Estimated Cost</div>
