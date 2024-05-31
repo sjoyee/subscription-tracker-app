@@ -35,13 +35,6 @@ router.post("/register", async (req, res) => {
     });
   }
 });
-router.post("/logout", (req, res) => {
-  /* 
-    You may want to perform additional
-    cleanup or session invalidation here
-     */
-  res.clearCookie("token").send("Logged out successfully");
-});
 
 router.post("/login", async (req, res) => {
   try {
@@ -66,15 +59,42 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const accessToken = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_ACCESS_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
-    res.json({ token });
+    res.json({ accessToken: accessToken });
   } catch (error) {
-    console.error(error);
     res.status(500).json({
       error: "Internal server error",
+    });
+  }
+});
+
+// Verify route
+router.get("/verify", (req, res) => {
+  // Get token value to the json body
+  const token = req.body.accessToken;
+
+  // If the token is present
+  if (token) {
+    // Verify the token using jwt.verify method
+    const decode = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+
+    //  Return response with decode data
+    res.json({
+      login: true,
+      data: decode,
+    });
+  } else {
+    // Return response with error
+    res.json({
+      login: false,
+      data: "error",
     });
   }
 });

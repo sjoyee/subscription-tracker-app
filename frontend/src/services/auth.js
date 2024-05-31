@@ -5,7 +5,6 @@ export const login = async (user) => {
     email: user.email,
     password: user.password,
   });
-
   return response;
 };
 
@@ -21,6 +20,6 @@ export const register = async (user) => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("accessToken");
   window.location.replace("/login");
 };
