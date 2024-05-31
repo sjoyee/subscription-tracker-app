@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
+const connectDB = require("../src/config/db");
 
-const authRoutes = require("./routes/auth");
-const activeRoutes = require("./routes/api/active");
-const freeTrialRoutes = require("./routes/api/freetrial");
-const userRoutes = require("./routes/api/user");
-const adminUserRoutes = require("./routes/api/adminuser");
+const authRoutes = require("../src/routes/auth");
+const activeRoutes = require("../src/routes/api/active");
+const freeTrialRoutes = require("../src/routes/api/freetrial");
+const userRoutes = require("../src/routes/api/user");
+const adminUserRoutes = require("../src/routes/api/adminuser");
 
 const app = express();
 app.use(cors());
