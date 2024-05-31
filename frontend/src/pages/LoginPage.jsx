@@ -19,6 +19,7 @@ const LoginPage = () => {
     login(formData)
       .then((res) => {
         localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("email", res.data.email);
         window.location.replace("/");
       })
       .catch((err) => {

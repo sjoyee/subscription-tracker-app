@@ -21,5 +21,6 @@ export const register = async (user) => {
 
 export const logout = () => {
   localStorage.removeItem("accessToken");
+  localStorage.removeItem("email");
   window.location.replace("/login");
 };

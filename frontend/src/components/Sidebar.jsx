@@ -120,7 +120,16 @@ const Sidebar = () => {
                 </div>
               </div>
               <div className="py-2"></div>
-              <button className="flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2">
+              <button
+                onClick={() => {
+                  navigate("/settings");
+                }}
+                className={
+                  isActive("/settings")
+                    ? "flex flex-row font-bold fill-gray-400 stroke-2"
+                    : "flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+                }
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="auto"
@@ -144,7 +153,12 @@ const Sidebar = () => {
               </button>
             </div>
             <div className="py-4">
-              <button className="flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2">
+              <button
+                onClick={() => {
+                  logout();
+                }}
+                className="flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="auto"
@@ -159,14 +173,7 @@ const Sidebar = () => {
                     d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
                   />
                 </svg>
-                <div
-                  className="mx-4 md:flex hidden"
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  Logout
-                </div>
+                <div className="mx-4 md:flex hidden">Logout</div>
               </button>
             </div>
           </div>

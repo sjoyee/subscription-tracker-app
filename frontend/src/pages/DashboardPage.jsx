@@ -75,42 +75,55 @@ const DashboardPage = () => {
           <div className="py-4"></div>
           {/* Second section */}
           <div className="text-2xl my-4">Upcoming Payment</div>
-          <div className="flex flex-wrap">
-            {upcomingPaymentItems.map((item) => {
-              return (
-                <div
-                  key={item._id}
-                  className="my-4 mr-4 p-4 border-2 border-gray-200 shadow-md w-80"
-                >
-                  <div className="text-2xl font-bold my-2">{item.name}</div>
-                  <div className="text-gray-500 text-sm my-2">
-                    RM {item.price.$numberDecimal}
+          {upcomingPaymentItems.length > 0 ? (
+            <div className="flex flex-wrap">
+              {upcomingPaymentItems.map((item) => {
+                return (
+                  <div
+                    key={item._id}
+                    className="my-4 mr-4 p-4 border-2 border-gray-200 shadow-md w-80"
+                  >
+                    <div className="text-2xl font-bold my-2">{item.name}</div>
+                    <div className="text-gray-500 text-sm my-2">
+                      RM {item.price.$numberDecimal}
+                    </div>
+                    <div className="text-sm font-normal my-2">
+                      Due: {formatDate(item.nextDate)}
+                    </div>
                   </div>
-                  <div className="text-sm font-normal my-2">
-                    Due: {formatDate(item.nextDate)}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-gray-700">
+              No upcoming payment for active subscriptions.
+            </div>
+          )}
+
           <div className="py-4"></div>
           {/* Third section */}
           <div className="text-2xl my-4">Ending Free Trial</div>
-          <div className="flex flex-wrap">
-            {endingFreeTrialItems.map((item) => {
-              return (
-                <div
-                  key={item._id}
-                  className="my-4 mr-4 p-4 border-2 border-gray-200 shadow-md w-80"
-                >
-                  <div className="text-2xl font-bold my-2">{item.name}</div>
-                  <div className="text-sm font-normal my-2">
-                    Due: {formatDate(item.endDate)}
+          {endingFreeTrialItems.length > 0 ? (
+            <div className="flex flex-wrap">
+              {endingFreeTrialItems.map((item) => {
+                return (
+                  <div
+                    key={item._id}
+                    className="my-4 mr-4 p-4 border-2 border-gray-200 shadow-md w-80"
+                  >
+                    <div className="text-2xl font-bold my-2">{item.name}</div>
+                    <div className="text-sm font-normal my-2">
+                      Due: {formatDate(item.endDate)}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-gray-700">
+              No upcoming due free trial items.
+            </div>
+          )}
         </div>
       </div>
     </div>

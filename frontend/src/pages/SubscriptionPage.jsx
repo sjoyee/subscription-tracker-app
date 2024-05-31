@@ -104,9 +104,7 @@ const SubscriptionPage = () => {
   if (error) return <div>Error: {error.message}</div>;
   return (
     <div>
-      <div
-        className={createActive || editActive ? "opacity-30" : "opacity-100"}
-      >
+      <div>
         <Sidebar />
         <div className="absolute md:ml-52 ml-14">
           <div className="m-12">

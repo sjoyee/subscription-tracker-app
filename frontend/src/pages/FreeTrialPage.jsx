@@ -101,11 +101,7 @@ const FreeTrialPage = () => {
   if (error) return <div>Error: {error.message}</div>;
   return (
     <div>
-      <div
-        className={
-          createFreeTrial || editFreeTrial ? "opacity-30" : "opacity-100"
-        }
-      >
+      <div>
         <Sidebar />
         <div className="absolute md:ml-52 ml-14">
           <div className="m-12">

@@ -41,3 +41,8 @@ export const deleteFreeTrialViaApi = (id, data) => {
   const response = api.delete(`/api/subscription/freetrial/${id}`, data);
   return response;
 };
+// user related operation
+export const getUserByEmailViaApi = (email) => {
+  const response = api.get(`/api/user/${email}`);
+  return response;
+};
