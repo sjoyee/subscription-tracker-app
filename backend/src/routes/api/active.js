@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const checkAuth = require("../../middleware/auth");
+const authenticateToken = require("../../middleware/auth");
 
 // Load Active model
 const Active = require("../../models/Active");
 
 // @route   GET api/subscription/active
 // @desc    Get all active subscriptions
-router.get("/", checkAuth, async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   await Active.find()
     .then((items) => res.json(items))
     .catch((err) => res.status(400).json({ error: err }));
@@ -15,7 +15,7 @@ router.get("/", checkAuth, async (req, res) => {
 
 // @route   POST api/subscription/active
 // @desc    Add new subscription
-router.post("/", checkAuth, async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
   const newItem = new Active(req.body);
   await newItem
     .save()
@@ -25,7 +25,7 @@ router.post("/", checkAuth, async (req, res) => {
 
 // @route   PUT api/subscription/active/:id
 // @desc    Update an existing subscription by id
-router.put("/:id", checkAuth, async (req, res) => {
+router.put("/:id", authenticateToken, async (req, res) => {
   try {
     const updatedItem = await Active.findByIdAndUpdate(
       req.params.id,
@@ -42,7 +42,7 @@ router.put("/:id", checkAuth, async (req, res) => {
 
 // @route   DELETE api/subscription/active/:id
 // @desc    Delete a subscription by id
-router.delete("/:id", checkAuth, async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
   await Active.findByIdAndDelete(req.params.id)
     .then(() => res.json({ message: "Item deleted successfully" }))
     .catch((err) => res.status(400).json({ error: err }));
@@ -50,7 +50,7 @@ router.delete("/:id", checkAuth, async (req, res) => {
 
 // @route   GET api/subscription/active/yearly-estimated-cost
 // @desc    Get yearly estimated cost for all active subscriptions
-router.get("/yearly-estimated-cost", checkAuth, async (req, res) => {
+router.get("/yearly-estimated-cost", authenticateToken, async (req, res) => {
   try {
     const total = await Active.aggregate([
       {
@@ -88,7 +88,7 @@ router.get("/yearly-estimated-cost", checkAuth, async (req, res) => {
 
 // @route   GET api/subscription/active/monthly-estimated-cost
 // @desc    Get monthly estimated cost for all active subscriptions
-router.get("/monthly-estimated-cost", checkAuth, async (req, res) => {
+router.get("/monthly-estimated-cost", authenticateToken, async (req, res) => {
   try {
     const total = await Active.aggregate([
       {
@@ -126,7 +126,7 @@ router.get("/monthly-estimated-cost", checkAuth, async (req, res) => {
 
 // @route   Get api/subscription/active/next-payment
 // @desc    Get all upcoming to be paid active subscriptions by the next x (default:7) days
-router.get("/next-payment", checkAuth, async (req, res) => {
+router.get("/next-payment", authenticateToken, async (req, res) => {
   try {
     // Get the number of days from query parameters or use 7 as the default
     const days = parseInt(req.query.days, 10) || 7;
