@@ -136,7 +136,7 @@ const FreeTrialPage = () => {
                 <thead className="bg-gray-100">
                   <tr className="border-b border-gray-300">
                     <th className="p-4">App Name</th>
-                    <th className="px-4">Start Date</th>
+                    <th className="px-4 hidden sm:table-cell">Start Date</th>
                     <th className="px-4">End Date</th>
                     <th className="px-4">Action</th>
                   </tr>
@@ -150,9 +150,7 @@ const FreeTrialPage = () => {
                         <td className="px-4 hidden sm:table-cell">
                           {item.startDate}
                         </td>
-                        <td className="px-4 hidden sm:table-cell">
-                          {item.endDate}
-                        </td>
+                        <td className="px-4">{item.endDate}</td>
                         <td className="px-4">
                           <button
                             className="stroke-[1.5] hover:stroke-[2.5]"
