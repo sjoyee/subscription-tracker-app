@@ -5,8 +5,19 @@ import DashboardPage from "./pages/DashboardPage";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import FreeTrialPage from "./pages/FreeTrialPage";
 import SettingsPage from "./pages/SettingsPage";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("accessToken");
+    if (
+      window.location.pathname !== "/login" &&
+      window.location.pathname !== "/create" &&
+      !loggedInUser
+    ) {
+      window.location.replace("/login");
+    }
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
