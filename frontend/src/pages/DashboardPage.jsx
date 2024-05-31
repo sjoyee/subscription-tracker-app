@@ -22,8 +22,8 @@ const DashboardPage = () => {
         ] = await Promise.all([
           api.get("/api/subscription/active/yearly-estimated-cost"),
           api.get("/api/subscription/active/monthly-estimated-cost"),
-          api.get("api/subscription/active/next-payment"),
-          api.get("api/subscription/freetrial/next-ending"),
+          api.get("/api/subscription/active/next-payment"),
+          api.get("/api/subscription/freetrial/next-ending"),
         ]);
         setYearlyEst(
           roundTwoDecimalPlaces(yearlyEstRes.data[0].totalCost.$numberDecimal)
@@ -49,9 +49,9 @@ const DashboardPage = () => {
   return (
     <div>
       <Sidebar />
-      <div className="md:ml-52 ml-14">
+      <div className="absolute md:ml-52 ml-14">
         <div className="m-12">
-          <div className="text-4xl font-medium mt-4 mb-8">
+          <div className="text-3xl font-medium mt-4 mb-8">
             Monitor and analyse your subscriptions
           </div>
           {/* First section */}

@@ -1,12 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const pathname = useLocation().pathname;
+
+  const isActive = (inputPath) => {
+    return inputPath === pathname;
+  };
 
   return (
     <div>
-      <div className="z-50 fixed inline-block top-0 bottom-0 left-0 right-0">
-        <div className="h-screen flex">
+      <div className="fixed inline-block top-0 bottom-0 left-0 right-0">
+        <div className="flex h-full">
           <div className="flex flex-col h-full w-20 md:w-52 border-r shadow-xl p-6 justify-between">
             <div>
               <div className="pb-4 md:flex hidden">
@@ -29,7 +34,11 @@ const Sidebar = () => {
                 onClick={() => {
                   navigate("/");
                 }}
-                className="flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+                className={
+                  isActive("/")
+                    ? "flex flex-row font-bold fill-gray-400 stroke-2"
+                    : "flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+                }
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +59,13 @@ const Sidebar = () => {
               <div className="py-2"></div>
               <button
                 onClick={() => {
-                  navigate("/subscriptions");
+                  navigate("/subscription");
                 }}
-                className="flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+                className={
+                  isActive("/subscription")
+                    ? "flex flex-row font-bold fill-gray-400 stroke-2"
+                    : "flex flex-row hover:font-bold fill-none hover:fill-gray-400 stroke-[1.5] hover:stroke-2"
+                }
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

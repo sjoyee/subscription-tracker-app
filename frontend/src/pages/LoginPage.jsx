@@ -18,11 +18,11 @@ const LoginPage = () => {
 
     login(formData)
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("accessToken", res.data.accessToken);
         window.location.replace("/");
       })
       .catch((err) => {
-        console.log(err.response.data.error);
+        console.log(err);
         alert("Invalid credentials. Please try again");
       });
   };
