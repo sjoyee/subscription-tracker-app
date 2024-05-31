@@ -3,11 +3,9 @@
 ## Demo
 Link: https://subscrimate-app.vercel.app/  
   
-Sample user credentials to login:
+User credentials to login:
 * Email: siangjoyee@gmail.com
 * Password: @bcd1234
-
-You may also register a new account and try it.
 
 ## Overview
 A full-stack MERN application that helps users keep track of their active subscriptions and free trials. The primary goal is to alleviate the hassle of managing multiple subscriptions and ensure users do not miss out on canceling before free trials convert to paid subscriptions.
@@ -24,8 +22,8 @@ A full-stack MERN application that helps users keep track of their active subscr
 * End-to-end CRUD operations via REST API
 
 ## Future enhancements
-* Implement a stronger user authentication (eg: stronger password restriction)
 * Implement refresh token by refreshing the access token instead of logging user out immediately
+* Implement a stronger user authentication (eg: stronger password restriction)
 * Allow updating of user details
 * Handle loading and error UI for a better UX
 
